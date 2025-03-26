@@ -10,7 +10,7 @@
 
 .dark {
   --input: rgba(0, 121, 255, 1);
-  --date: rgba(255, 255, 255, 1);
+  --special: rgba(255, 255, 255, 1);
   --text-secondary: rgba(255, 255, 255, 1);
   --text-primary: rgba(255, 255, 255, 1);
   --main-bg: rgba(20, 29, 47, 1);
@@ -20,7 +20,7 @@
 :root {
   /* colors */
   --input: rgb(0, 121, 255);
-  --date: rgb(105, 124, 154);
+  --special: rgb(105, 124, 154);
   --text-secondary: rgb(75, 106, 155);
   --text-primary: rgb(43, 52, 66);
   --main-bg: rgb(246, 248, 255);
@@ -67,6 +67,10 @@
   color: var(--text-secondary);
 }
 
+h1 {
+  margin: 0;
+}
+
 html {
   overscroll-behavior: smooth;
   user-select: none;
@@ -103,13 +107,43 @@ body {
   margin-bottom: 36px;
 }
 
-.logo {}
+.main-logo {
+  cursor: pointer;
+
+  font-family: Space Mono;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 100%;
+  letter-spacing: 0px;
+
+  color: rgba(34, 39, 49, 1);
+
+  &.dark {
+    color: var(--text-primary);
+  }
+}
 
 .dark-mode-btn {
   display: flex;
   align-items: center;
   gap: 16px;
   cursor: pointer;
+  color: var(--text-secondary);
+
+  font-family: Space Mono;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 100%;
+  letter-spacing: 2.5px;
+  text-align: right;
+
+  &:hover {
+    color: rgba(34, 39, 49, 1);
+
+    &.dark {
+      color: var(--special);
+    }
+  }
 }
 
 .main-screen {
@@ -136,13 +170,22 @@ body {
 }
 
 #search-bar {
-  width: 70%;
+  width: 50%;
   border: none;
   outline: none;
   margin-left: 24px;
   background-color: var(--container);
   color: var(--text-primary);
   margin-right: auto;
+  caret-color: var(--input);
+
+  &::placeholder {
+    color: var(--text-secondary);
+  }
+}
+
+.error-search-bar {
+  color: rgba(247, 70, 70, 1);
 }
 
 .search-btn {
@@ -169,16 +212,12 @@ body {
 }
 
 .profil-img-container {
-  overflow: hidden;
   width: 117px;
   height: 117px;
-  clip-path: circle();
 }
 
 .profil-img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+  border-radius: 100%;
 }
 
 .profil-presentaion {
@@ -191,4 +230,13 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.link-site {
+  text-decoration: none;
+  color: var(--text-secondary);
+
+  &:hover {
+    text-decoration: underline;
+  }
 }

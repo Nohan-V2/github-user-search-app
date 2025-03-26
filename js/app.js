@@ -1,4 +1,4 @@
-const $body = document.querySelector("body");
+const $universel = document.querySelectorAll("*");
 
 const $logoBtn = document.querySelector(".main-logo");
 const $darkModeBtn = document.querySelector(".dark-mode-btn");
@@ -60,26 +60,30 @@ async function getUser(username) {
 }
 
 function fetchInformations(data) {
-  $profilImg.src = data.avatar_url;
-  if (data.name === "null") {
-    $username.textContent = "@" + data.login;
+  if (data.status !== "404") {
+    $profilImg.src = data.avatar_url;
+    if (data.name === "null") {
+      $username.textContent = "@" + data.login;
+    } else {
+      $username.textContent = "@" + data.name;
+    }
+    $joinedDate.textContent = `Joined ${new Date(
+      data.created_at
+    ).toLocaleDateString()}`;
+    $arobase.textContent = data.login;
+    $bioProfil.textContent = data.bio;
+
+    $reposNumber.textContent = data.public_repos;
+    $followersNumber.textContent = data.followers;
+    $followingNumber.textContent = data.following;
+
+    $location.textContent = data.location;
+    $social.textContent = data.blog;
+    $linkSite.textContent = data.html_url;
+    $business.textContent = data.company;
   } else {
-    $username.textContent = "@" + data.name;
+    $errorSearchBar.classList.remove("hidden");
   }
-  $joinedDate.textContent = `Joined ${new Date(
-    data.created_at
-  ).toLocaleDateString()}`;
-  $arobase.textContent = data.login;
-  $bioProfil.textContent = data.bio;
-
-  $reposNumber.textContent = data.public_repos;
-  $followersNumber.textContent = data.followers;
-  $followingNumber.textContent = data.following;
-
-  $location.textContent = data.location;
-  $social.textContent = data.blog;
-  $linkSite.textContent = data.html_url;
-  $business.textContent = data.company;
 }
 
 $searchBtn.addEventListener("click", (e) => {
@@ -91,11 +95,21 @@ $searchBtn.addEventListener("click", (e) => {
 $searchBar.addEventListener("input", (e) => {
   e.preventDefault();
 
+  if ($searchBar.value === "") {
+    $searchBtn.style.backgroundColor = "var(--input)";
+  } else {
+    $searchBtn.style.backgroundColor = "rgba(96, 171, 255, 1)";
+  }
+});
+
+$searchBar.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     getUser($searchBar.value);
   }
 });
 
 $darkModeBtn.addEventListener("click", () => {
-  $body.classList.toggle("dark");
+  $universel.forEach((element) => {
+    element.classList.toggle("dark");
+  });
 });
