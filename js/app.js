@@ -15,12 +15,18 @@ const $searchBtn = document.querySelector(".search-btn");
 const $profilImg = document.querySelector(".profil-img");
 const $username = document.querySelector(".username");
 const $joinedDate = document.querySelector(".joined-date");
+const $linkArobase = document.querySelector(".link-arobase");
 const $arobase = document.querySelector(".arobase");
 const $bioProfil = document.querySelector(".bio-profil");
 
 const $reposNumber = document.querySelector(".repos-number");
 const $followersNumber = document.querySelector(".followers-number");
 const $followingNumber = document.querySelector(".following-number");
+
+const $locationText = document.querySelector(".location-text");
+const $socialText = document.querySelector(".social-text");
+const $linkSiteText = document.querySelector(".link-site-text");
+const $businessText = document.querySelector(".business-text");
 
 const $location = document.querySelector(".location");
 const $social = document.querySelector(".social");
@@ -49,79 +55,145 @@ const lightSVG = `<svg class="sun-icon" width="20" height="20" viewBox="0 0 20 2
 </svg>
 `;
 
-async function getUser(username) {
-  fetch(`https://api.github.com/users/${username}`, {
-    headers: {
-      Authorization: `token ${TOKEN}`,
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-      fetchInformations(data);
+document.addEventListener("DOMContentLoaded", () => {
+  async function getUser(username) {
+    fetch(`https://api.github.com/users/${username}`, {
+      headers: {
+        Authorization: `token ${TOKEN}`,
+      },
     })
-    .catch((err) => console.log("Error API " + err));
-}
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        fetchInformations(data);
+      })
+      .catch((err) => console.log("Error API " + err));
+  }
 
-function fetchInformations(data) {
-  if (data.status !== "404") {
-    $errorSearchBar.classList.add("hidden");
+  function fetchInformations(data) {
+    if (data.status !== "404") {
+      $errorSearchBar.classList.add("hidden");
 
-    $profilImg.src = data.avatar_url;
-    if (data.name === null) {
-      $username.textContent = data.login;
+      $profilImg.src = data.avatar_url;
+      if (data.name === null) {
+        $username.textContent = data.login;
+      } else {
+        $username.textContent = data.name;
+      }
+      $joinedDate.textContent = `Joined ${new Date(
+        data.created_at
+      ).toLocaleDateString()}`;
+      $arobase.textContent = "@" + data.login;
+      $linkArobase.href = `https://github.com/${data.login}`;
+      $bioProfil.textContent = data.bio;
+
+      $reposNumber.textContent = data.public_repos;
+      $followersNumber.textContent = data.followers;
+      $followingNumber.textContent = data.following;
+
+      if (data.location === null) {
+        $locationText.textContent = "Not Available";
+        $location.classList.add("null");
+      } else {
+        $locationText.textContent = data.location;
+        $location.classList.remove("null");
+      }
+
+      if (data.twitter_username === null) {
+        $socialText.textContent = "Not Available";
+        $social.classList.add("null");
+      } else {
+        $socialText.textContent = data.twitter_username;
+        $social.classList.remove("null");
+      }
+
+      if (data.blog === "") {
+        $linkSiteText.textContent = "Not Available";
+        $linkSite.classList.add("null");
+      } else {
+        $linkSiteText.textContent = data.blog;
+        $linkSite.classList.remove("null");
+      }
+
+      if (data.company === null) {
+        $businessText.textContent = "Not Available";
+        $business.classList.add("null");
+      } else {
+        $businessText.textContent = data.company;
+        $business.classList.remove("null");
+      }
     } else {
-      $username.textContent = data.name;
+      $errorSearchBar.classList.remove("hidden");
     }
-    $joinedDate.textContent = `Joined ${new Date(
-      data.created_at
-    ).toLocaleDateString()}`;
-    $arobase.textContent = "@" + data.login;
-    $bioProfil.textContent = data.bio;
-
-    $reposNumber.textContent = data.public_repos;
-    $followersNumber.textContent = data.followers;
-    $followingNumber.textContent = data.following;
-
-    $location.textContent = data.location;
-    $social.textContent = data.blog;
-    $linkSite.textContent = data.html_url;
-    $business.textContent = data.company;
-  } else {
-    $errorSearchBar.classList.remove("hidden");
   }
-}
 
-$searchBtn.addEventListener("click", (e) => {
-  e.preventDefault();
+  $searchBtn.addEventListener("click", (e) => {
+    e.preventDefault();
 
-  getUser($searchBar.value);
-});
-
-$searchBar.addEventListener("input", (e) => {
-  e.preventDefault();
-
-  if ($searchBar.value === "") {
-    $searchBtn.style.backgroundColor = "var(--input)";
-  } else {
-    $searchBtn.style.backgroundColor = "rgba(96, 171, 255, 1)";
-  }
-});
-
-$searchBar.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
     getUser($searchBar.value);
-  }
-});
+  });
 
-$darkModeBtn.addEventListener("click", () => {
-  $universel.forEach((element) => {
-    element.classList.toggle("dark");
+  $searchBar.addEventListener("input", (e) => {
+    e.preventDefault();
 
-    if (element.classList.contains("dark")) {
-      $themeIcon.innerHTML = lightSVG;
+    if ($searchBar.value === "") {
+      $searchBtn.style.backgroundColor = "var(--input)";
     } else {
-      $themeIcon.innerHTML = darkSVG;
+      $searchBtn.style.backgroundColor = "rgba(96, 171, 255, 1)";
     }
   });
+
+  $searchBar.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      getUser($searchBar.value);
+    }
+  });
+
+  $darkModeBtn.addEventListener("click", () => {
+    $universel.forEach((element) => {
+      element.classList.toggle("dark");
+
+      if (element.classList.contains("dark")) {
+        $themeIcon.innerHTML = lightSVG;
+        $darkModeBtnText.textContent = "LIGHT";
+      } else {
+        $themeIcon.innerHTML = darkSVG;
+        $darkModeBtnText.textContent = "DARK";
+      }
+    });
+  });
+
+  // Ajout de la détection des préférences du navigateur
+  function setThemeBasedOnPreference() {
+    const prefersDarkMode = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+
+    if (prefersDarkMode) {
+      $universel.forEach((element) => element.classList.add("dark"));
+      $themeIcon.innerHTML = lightSVG;
+      $darkModeBtnText.textContent = "LIGHT";
+    } else {
+      $universel.forEach((element) => element.classList.remove("dark"));
+      $themeIcon.innerHTML = darkSVG;
+      $darkModeBtnText.textContent = "DARK";
+    }
+  }
+
+  setThemeBasedOnPreference();
+
+  // Écouter les changements de préférence du système
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (e) => {
+      if (e.matches) {
+        $universel.forEach((element) => element.classList.add("dark"));
+        $themeIcon.innerHTML = lightSVG;
+        $darkModeBtnText.textContent = "LIGHT";
+      } else {
+        $universel.forEach((element) => element.classList.remove("dark"));
+        $themeIcon.innerHTML = darkSVG;
+        $darkModeBtnText.textContent = "DARK";
+      }
+    });
 });

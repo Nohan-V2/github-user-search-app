@@ -76,6 +76,7 @@ body {
   gap: 16px;
   cursor: pointer;
   color: var(--text-secondary);
+  transition: all 0.3s ease;
 
   font-weight: 700;
   font-size: 13px;
@@ -86,8 +87,16 @@ body {
   &:hover {
     color: rgba(34, 39, 49, 1);
 
-    &.dark {
-      color: var(--special);
+    path {
+      fill: rgba(34, 39, 49, 1);
+    }
+  }
+
+  &.dark:hover {
+    color: rgba(144, 164, 212, 1);
+
+    path {
+      fill: rgba(144, 164, 212, 1);
     }
   }
 }
@@ -164,6 +173,10 @@ body {
   padding: 12px 24px;
   transition: all 0.3s ease;
 
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0px;
+
   &:hover {
     background-color: rgba(96, 171, 255, 1);
   }
@@ -201,23 +214,118 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2px;
 }
 
-.arobase {
+.username {
+  color: var(--text-primary);
+
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 0px;
+}
+
+.joined-date {
+  color: var(--text-secondary);
+
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0px;
+  text-align: right;
+}
+
+.link-arobase {
   color: var(--input);
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-bottom: 20px;
+  text-decoration: none;
 
   &:hover {
     text-decoration: underline;
   }
 }
 
+.arobase {
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: 0px;
+}
+
+.bio-profil {
+  color: var(--text-primary);
+  margin-bottom: 32px;
+
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0px;
+}
+
+.informations-profil-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.numbers-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--main-bg);
+  border-radius: 10px;
+  padding: 16px 32px;
+}
+
+.numbers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.title-numbers {
+  color: var(--text-secondary);
+
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0px;
+}
+
+.numbers-stats {
+  color: var(--text-primary);
+
+  font-family: Space Mono;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+}
+
+.details-profil {
+  display: flex;
+  align-items: center;
+  gap: 62px;
+}
+
+.personnal-informations,
+.business-informations {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
   cursor: pointer;
   text-decoration: none;
   color: var(--text-secondary);
   transition: all 0.3s ease;
+
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0px;
 
   &:hover {
     text-decoration: underline;
@@ -225,5 +333,13 @@ body {
 
   &.null {
     opacity: 50%;
+
+    path {
+      fill-opacity: 50%;
+    }
+  }
+
+  path {
+    fill: var(--special);
   }
 }
