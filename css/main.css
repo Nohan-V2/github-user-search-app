@@ -27,46 +27,6 @@
   --container: rgb(254, 254, 254);
 }
 
-.h1 {
-  font-family: Space Mono;
-  font-weight: 700;
-  font-size: 26px;
-  line-height: 100%;
-  letter-spacing: 0px;
-
-  color: var(--text-primary);
-}
-
-.h2 {
-  font-family: Space Mono;
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 100%;
-  letter-spacing: 0px;
-
-  color: var(--text-primary);
-}
-
-.h3 {
-  font-family: Space Mono;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 100%;
-  letter-spacing: 0px;
-
-  color: var(--input);
-}
-
-.h4 {
-  font-family: Space Mono;
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 100%;
-  letter-spacing: 0px;
-
-  color: var(--text-secondary);
-}
-
 h1 {
   margin: 0;
 }
@@ -89,12 +49,6 @@ body {
   align-items: center;
   background-color: var(--main-bg);
 
-  font-family: Space Mono;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 25px;
-  letter-spacing: 0px;
-
   color: var(--text-primary);
 }
 
@@ -109,13 +63,6 @@ body {
 
 .main-logo {
   cursor: pointer;
-
-  font-family: Space Mono;
-  font-weight: 700;
-  font-size: 26px;
-  line-height: 100%;
-  letter-spacing: 0px;
-
   color: rgba(34, 39, 49, 1);
 
   &.dark {
@@ -130,10 +77,9 @@ body {
   cursor: pointer;
   color: var(--text-secondary);
 
-  font-family: Space Mono;
   font-weight: 700;
   font-size: 13px;
-  line-height: 100%;
+  line-height: auto;
   letter-spacing: 2.5px;
   text-align: right;
 
@@ -169,8 +115,14 @@ body {
   }
 }
 
+.search-icon {
+  width: 24px;
+  height: 24px;
+}
+
 #search-bar {
   width: 50%;
+  height: 100%;
   border: none;
   outline: none;
   margin-left: 24px;
@@ -179,23 +131,42 @@ body {
   margin-right: auto;
   caret-color: var(--input);
 
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 0px;
+
   &::placeholder {
     color: var(--text-secondary);
+
+    font-weight: 700;
+    font-size: 15px;
+    line-height: auto;
+    letter-spacing: 0px;
   }
 }
 
 .error-search-bar {
   color: rgba(247, 70, 70, 1);
+  margin: 0 24px;
+
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0px;
 }
 
 .search-btn {
   cursor: pointer;
   background-color: var(--input);
-  color: var(--container);
+  color: rgba(255, 255, 255, 1);
   border: none;
   outline: none;
   border-radius: 10px;
   padding: 12px 24px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(96, 171, 255, 1);
+  }
 }
 
 .profil-container {
@@ -232,11 +203,27 @@ body {
   align-items: center;
 }
 
-.link-site {
-  text-decoration: none;
-  color: var(--text-secondary);
+.arobase {
+  color: var(--input);
+  cursor: pointer;
+  transition: all 0.3s ease;
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+.link {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &.null {
+    opacity: 50%;
   }
 }
